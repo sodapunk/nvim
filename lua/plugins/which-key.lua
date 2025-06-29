@@ -32,9 +32,23 @@ return {
       -- Text group: documents (Markdown, LaTeX)
       ["<leader>t"] = {
         name = "+text",
+
+        -- Markdown tools
         m = { "<cmd>MarkdownPreview<CR>", "Markdown Preview" },
+        s = { "<cmd>MarkdownPreviewStop<CR>", "Stop Preview" },
+
+        -- LaTeX via vimtex
         c = { "<cmd>VimtexCompile<CR>", "LaTeX Compile" },
-        v = { "<cmd>VimtexView<CR>", "LaTeX View" },
+        v = { "<cmd>VimtexView<CR>", "LaTeX View PDF" },
+        k = { "<cmd>VimtexStop<CR>", "Stop Compilation" },
+        x = { "<cmd>VimtexClean<CR>", "Clean Aux Files" },
+
+        -- Spell checking tools
+        g = { "zg", "Add to Dictionary" },
+        w = { "zw", "Mark as Incorrect" },
+        n = { "]s", "Next Spell Error" },
+        p = { "[s", "Prev Spell Error" },
+        z = { "z=", "Suggest Fixes" },
       },
 
       -- Surround group (uses <leader>s* mappings)
