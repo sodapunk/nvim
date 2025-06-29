@@ -45,6 +45,45 @@ return {
             client.config.settings.python.pythonPath = python
           end,
         },
+
+        ltex = {
+          filetypes = { "markdown", "tex", "bib", "text" },
+          settings = {
+            ltex = {
+              java = {
+                path = "/usr/lib/jvm/java-17-openjdk/bin/java",
+              },
+              language = "en-GB",
+              additionalRules = {
+                enablePickyRules = true,
+                motherTongue = "en",
+              },
+              dictionary = {
+                ["en-GB"] = { "Neovim", "LazyVim", "Lua", "thesis" },
+              },
+            },
+          },
+        },
+      },
+      setup = {
+        -- Instead of calling ltex_extra directly here...
+        ltex = function(_, opts)
+          -- Create an autocommand to detect when LTeX attaches
+          vim.api.nvim_create_autocmd("LspAttach", {
+            callback = function(args)
+              local client = vim.lsp.get_client_by_id(args.data.client_id)
+              if client and client.name == "ltex" then
+                -- Safe to initialize ltex_extra now
+                require("ltex_extra").setup({
+                  load_langs = { "en-GB" },
+                  init_check = true,
+                  path = vim.fn.stdpath("config") .. "/spell",
+                  log_level = "info",
+                })
+              end
+            end,
+          })
+        end,
       },
     },
   },
