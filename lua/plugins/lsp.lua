@@ -48,4 +48,14 @@ return {
       },
     },
   },
+  {
+    "danymat/neogen",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    cmd = "Neogen",
+    keys = { { "<leader>ld", "<cmd>Neogen<cr>", desc = "Generate doc comment" } },
+    opts = { snippet_engine = "luasnip" },
+    config = function(_, opts)
+      require("neogen").setup(opts)
+    end,
+  },
 }

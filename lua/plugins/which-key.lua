@@ -1,69 +1,54 @@
 return {
   "folke/which-key.nvim",
   opts = {
-    defaults = {
+    spec = {
       -- Terminal group
-      ["<leader>T"] = {
-        name = "+terminal",
-        n = { "<cmd>FloatermNew<CR>", "New terminal" },
-        t = { "<cmd>FloatermToggle<CR>", "Toggle terminal" },
-        p = { "<cmd>FloatermPrev<CR>", "Previous terminal" },
-        x = { "<cmd>FloatermKill<CR>", "Close terminal" },
-      },
+      { "<leader>T", group = "terminal" },
+      { "<leader>Tn", "<cmd>FloatermNew<CR>", desc = "New terminal" },
+      { "<leader>Tt", "<cmd>FloatermToggle<CR>", desc = "Toggle terminal" },
+      { "<leader>Tp", "<cmd>FloatermPrev<CR>", desc = "Previous terminal" },
+      { "<leader>Tx", "<cmd>FloatermKill<CR>", desc = "Close terminal" },
 
       -- Diagnostics and DAP group
-      ["<leader>d"] = {
-        name = "+diagnostics",
-        t = {
-          function()
-            require("config.diagnostics").toggle()
-          end,
-          "Toggle Warnings",
-        },
-        b = { "<cmd>lua require'dap'.toggle_breakpoint()<CR>", "Toggle Breakpoint" },
-        c = { "<cmd>lua require'dap'.continue()<CR>", "Start/Continue" },
-        s = { "<cmd>lua require'dap'.step_over()<CR>", "Step Over" },
-        i = { "<cmd>lua require'dap'.step_into()<CR>", "Step Into" },
-        o = { "<cmd>lua require'dap'.step_out()<CR>", "Step Out" },
-        r = { "<cmd>lua require'dap'.repl.open()<CR>", "Open REPL" },
-        u = { "<cmd>lua require'dapui'.toggle()<CR>", "Toggle DAP UI" },
+      { "<leader>d", group = "diagnostics" },
+      {
+        "<leader>dt",
+        function()
+          require("config.diagnostics").toggle()
+        end,
+        desc = "Toggle Warnings",
       },
+      { "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<CR>", desc = "Toggle Breakpoint" },
+      { "<leader>dc", "<cmd>lua require'dap'.continue()<CR>", desc = "Start/Continue" },
+      { "<leader>ds", "<cmd>lua require'dap'.step_over()<CR>", desc = "Step Over" },
+      { "<leader>di", "<cmd>lua require'dap'.step_into()<CR>", desc = "Step Into" },
+      { "<leader>do", "<cmd>lua require'dap'.step_out()<CR>", desc = "Step Out" },
+      { "<leader>dr", "<cmd>lua require'dap'.repl.open()<CR>", desc = "Open REPL" },
+      { "<leader>du", "<cmd>lua require'dapui'.toggle()<CR>", desc = "Toggle DAP UI" },
 
-      -- Text group: documents (Markdown, LaTeX)
-      ["<leader>t"] = {
-        name = "+text",
+      -- Text tools group
+      { "<leader>t", group = "text" },
+      { "<leader>tm", "<cmd>MarkdownPreview<CR>", desc = "Markdown Preview" },
+      { "<leader>ts", "<cmd>MarkdownPreviewStop<CR>", desc = "Stop Preview" },
+      { "<leader>tc", "<cmd>VimtexCompile<CR>", desc = "LaTeX Compile" },
+      { "<leader>tv", "<cmd>VimtexView<CR>", desc = "LaTeX View PDF" },
+      { "<leader>tk", "<cmd>VimtexStop<CR>", desc = "Stop Compilation" },
+      { "<leader>tx", "<cmd>VimtexClean<CR>", desc = "Clean Aux Files" },
+      { "<leader>tg", "zg", desc = "Add to Dictionary" },
+      { "<leader>tw", "zw", desc = "Mark as Incorrect" },
+      { "<leader>tn", "]s", desc = "Next Spell Error" },
+      { "<leader>tp", "[s", desc = "Prev Spell Error" },
+      { "<leader>tz", "z=", desc = "Suggest Fixes" },
 
-        -- Markdown tools
-        m = { "<cmd>MarkdownPreview<CR>", "Markdown Preview" },
-        s = { "<cmd>MarkdownPreviewStop<CR>", "Stop Preview" },
-
-        -- LaTeX via vimtex
-        c = { "<cmd>VimtexCompile<CR>", "LaTeX Compile" },
-        v = { "<cmd>VimtexView<CR>", "LaTeX View PDF" },
-        k = { "<cmd>VimtexStop<CR>", "Stop Compilation" },
-        x = { "<cmd>VimtexClean<CR>", "Clean Aux Files" },
-
-        -- Spell checking tools
-        g = { "zg", "Add to Dictionary" },
-        w = { "zw", "Mark as Incorrect" },
-        n = { "]s", "Next Spell Error" },
-        p = { "[s", "Prev Spell Error" },
-        z = { "z=", "Suggest Fixes" },
-      },
-
-      -- Surround group (uses <leader>s* mappings)
-      ["g"] = {
-        s = {
-          name = "+surround",
-          a = { "gsa", "Add surround" },
-          d = { "gsd", "Delete surround" },
-          r = { "gsr", "Replace surround" },
-          f = { "gsf", "Find → surround" },
-          F = { "gsF", "Find ← surround" },
-          h = { "gsh", "Highlight surround" },
-          n = { "gsn", "Adjust search size" },
-        },
-      },
+      -- Surround group under g prefix
+      { "gs", group = "surround" },
+      { "gsa", "gsa", desc = "Add surround" },
+      { "gsd", "gsd", desc = "Delete surround" },
+      { "gsr", "gsr", desc = "Replace surround" },
+      { "gsf", "gsf", desc = "Find → surround" },
+      { "gsF", "gsF", desc = "Find ← surround" },
+      { "gsh", "gsh", desc = "Highlight surround" },
+      { "gsn", "gsn", desc = "Adjust search size" },
     },
   },
 }
