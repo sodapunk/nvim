@@ -18,6 +18,16 @@ return {
         end,
         desc = "Toggle Warnings",
       },
+      {
+        "<leader>dh",
+        function()
+          local bufnr = vim.api.nvim_get_current_buf()
+          local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+          vim.lsp.inlay_hint.enable(not enabled, nil)
+        end,
+        desc = "Toggle Inlay Hints",
+      },
+
       { "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<CR>", desc = "Toggle Breakpoint" },
       { "<leader>dc", "<cmd>lua require'dap'.continue()<CR>", desc = "Start/Continue" },
       { "<leader>ds", "<cmd>lua require'dap'.step_over()<CR>", desc = "Step Over" },
@@ -25,7 +35,6 @@ return {
       { "<leader>do", "<cmd>lua require'dap'.step_out()<CR>", desc = "Step Out" },
       { "<leader>dr", "<cmd>lua require'dap'.repl.open()<CR>", desc = "Open REPL" },
       { "<leader>du", "<cmd>lua require'dapui'.toggle()<CR>", desc = "Toggle DAP UI" },
-
       -- Text tools group
       { "<leader>t", group = "text" },
       { "<leader>tm", "<cmd>MarkdownPreview<CR>", desc = "Markdown Preview" },

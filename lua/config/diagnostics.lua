@@ -1,10 +1,21 @@
--- ~/.config/nvim/lua/config/diagnostics.lua
 local M = {}
 
-local show_warnings = false
+-- Diagnostic level: 0 = Errors only, 1 = +Warnings, 2 = +Hints
+local diag_level = 0
 
-local function set_diag(show)
-  local min_sev = show and vim.diagnostic.severity.WARN or vim.diagnostic.severity.ERROR
+local function get_min_severity()
+  if diag_level == 0 then
+    return vim.diagnostic.severity.ERROR
+  elseif diag_level == 1 then
+    return vim.diagnostic.severity.WARN
+  else
+    return vim.diagnostic.severity.HINT
+  end
+end
+
+local function set_diag()
+  local min_sev = get_min_severity()
+
   vim.diagnostic.config({
     severity_sort = true,
     underline = true,
@@ -28,12 +39,19 @@ local function set_diag(show)
 end
 
 function M.toggle()
-  show_warnings = not show_warnings
-  set_diag(show_warnings)
-  vim.notify("Diagnostics: " .. (show_warnings and "Errors + Warnings" or "Errors only"))
+  diag_level = (diag_level + 1) % 3
+  set_diag()
+
+  local status = ({
+    [0] = "Errors only",
+    [1] = "Errors + Warnings",
+    [2] = "Errors + Warnings + Hints",
+  })[diag_level]
+
+  vim.notify("Diagnostics: " .. status)
 end
 
--- default to errors only
-set_diag(false)
+-- Default: Errors only
+set_diag()
 
 return M

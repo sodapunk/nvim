@@ -5,3 +5,10 @@ def foo(i: int):
 def bar(j: int):
     k = foo(j)
     return k / 2
+
+
+def add(a: int, b: int):
+    return a + b
+
+
+x = add(1, 2)
