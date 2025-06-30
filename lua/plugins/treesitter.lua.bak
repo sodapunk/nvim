@@ -1,0 +1,20 @@
+-- lua/config/treesitter.lua
+return {
+  "nvim-treesitter/nvim-treesitter",
+  opts = {
+    -- "all" will attempt to install every maintained parser.
+    -- You can also pass a list: { "lua", "python", "typescript", ... }
+    ensure_installed = "all",
+
+    -- Enable highlight, incremental selection, indent, etc:
+    highlight = { enable = true, additional_vim_regex_highlighting = false },
+    indent = { enable = true },
+
+    -- Optionally enable additional modules:
+    incremental_selection = { enable = true },
+    textobjects = {
+      enable = true,
+      -- see LazyVim docs for keymaps & object definitions
+    },
+  },
+}

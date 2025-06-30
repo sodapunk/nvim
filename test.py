@@ -1,3 +1,6 @@
+import torch
+
+
 def foo(i: int):
     return 2 * i
 
@@ -12,3 +15,7 @@ def add(a: int, b: int):
 
 
 x = add(1, 2)
+
+
+testtensor = torch.tensor([1])
+print(testtensor)

@@ -21,4 +21,18 @@ return {
       require("nvim-highlight-colors").setup({})
     end,
   },
+  {
+    "j-hui/fidget.nvim",
+    tag = "legacy",
+    config = function()
+      require("fidget").setup({ text = { spinner = "dots" } })
+    end,
+  },
+  {
+    "christoomey/vim-tmux-navigator",
+    lazy = false, -- load immediately
+    config = function()
+      -- no extra setup needed; uses same h/j/k/l mappings
+    end,
+  },
 }
