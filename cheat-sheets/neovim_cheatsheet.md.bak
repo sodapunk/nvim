@@ -1,0 +1,258 @@
+# Neovim Core Motions & Commands Cheat Sheet
+
+A one-stop reference taken from beginner to expert: everything from basic cursor moves to advanced operator-text-object combos, surrounds, viewport motions, macros, splits, and plugin integrations.
+
+---
+
+## 📖 Table of Contents
+
+1. [Modes & Exiting](#modes--exiting)  
+2. [Counts & Intuition](#counts--intuition)  
+3. [Basic Cursor Motions](#basic-cursor-motions)  
+4. [Line & File Motions](#line--file-motions)  
+5. [Scroll & Viewport Motions](#scroll--viewport-motions)  
+6. [Search & Repeat](#search--repeat)  
+7. [Marks & Jumps](#marks--jumps)  
+8. [Visual Selection](#visual-selection)  
+9. [Operators & Text Objects](#operators--text-objects)  
+10. [Common Operator-Motion Chains](#common-operator-motion-chains)  
+11. [Surrounds & Wrapping](#surrounds--wrapping)  
+12. [End-of-Line & Insert-Mode Motions](#end-of-line--insert-mode-motions)  
+13. [Registers & Macros](#registers--macros)  
+14. [Window, Split & Tab Management](#window-split--tab-management)  
+15. [Command-Line Mode & Substitutions](#command-line-mode--substitutions)  
+16. [Plugins & Handy Combos](#plugins--handy-combos)  
+17. [Putting It Into Practice](#putting-it-into-practice)
+
+---
+
+## Modes & Exiting
+
+| Mode             | Enter                   | Exit               |
+|------------------|-------------------------|--------------------|
+| **Normal**       | `Esc` / `<C-[>`         | —                  |
+| **Insert**       | `i`, `I`, `a`, `A`, `o`, `O` | `Esc`          |
+| **Visual**       | `v`, `V`, `<C-v>`       | `Esc`              |
+| **Command-Line** | `:`                     | `Enter` / `Esc`    |
+| **Operator-pending** | after `d`, `c`, `y`, `>` | completes on motion |
+
+---
+
+## Counts & Intuition
+
+Use a numeric prefix to repeat the *next* command or operator that many times.
+
+| Command    | Example | Description                                      |
+|------------|---------|--------------------------------------------------|
+| `j`        | `5j`    | move down 5 lines                                |
+| `dw`       | `3dw`   | delete next word 3 times                         |
+| `>`        | `2>>`   | indent current line twice                        |
+
+> **Tip:** Think "do X this many times" instead of repeating.
+
+---
+
+## Basic Cursor Motions
+
+| Command       | Example | Description                                |
+|---------------|---------|--------------------------------------------|
+| `h`, `j`, `k`, `l` | `4h`    | move left 4 chars, etc.                 |
+| `w`, `W`      | `2W`    | jump to 2nd start of WORD (big-delim)     |
+| `e`, `E`      | `e`     | end of word                              |
+| `b`, `B`      | `3b`    | back to start of word                     |
+| `f<char>`, `t<char>` | `f;`    | to / before next `;`                    |
+| `;`, `,`      | `;`     | repeat last `f`/`t` forward/backward       |
+| `%`           | `%`     | jump between matching brackets            |
+
+---
+
+## Line & File Motions
+
+| Command          | Example | Description                                      |
+|------------------|---------|--------------------------------------------------|
+| `0`              | `0`     | beginning of line (col 1)                        |
+| `^`              | `^`     | first non-blank char                             |
+| `$`              | `$`     | end of line                                       |
+| `gg`             | `gg`    | go to first line                                 |
+| `G`              | `G`     | go to last line (or `50G` → line 50)             |
+| `H`, `M`, `L`    | `M`     | top, middle, bottom of viewport                  |
+| `zt`, `zz`, `zb` | `zz`    | scroll current line to top/center/bottom         |
+
+---
+
+## Scroll & Viewport Motions
+
+| Command   | Example | Description                           |
+|-----------|---------|---------------------------------------|
+| `<C-d>`   | `<C-d>` | scroll down half a page               |
+| `<C-u>`   | `<C-u>` | scroll up half a page                 |
+| `<C-f>`   | `<C-f>` | scroll down full page                 |
+| `<C-b>`   | `<C-b>` | scroll up full page                   |
+| `z.`      | `z.`    | redraw & center cursor                |
+
+---
+
+## Search & Repeat
+
+| Command        | Example                   | Description                          |
+|----------------|---------------------------|--------------------------------------|
+| `/pattern`     | `/TODO`                   | search forward for “TODO”            |
+| `?pattern`     | `?function`               | search backward                      |
+| `n` / `N`      | `n`                       | next/previous match                  |
+| `*` / `#`      | `*`                       | search word under cursor forward/back|
+| `.`            | `.`                       | repeat last change                   |
+
+---
+
+## Marks & Jumps
+
+| Command        | Example | Description                             |
+|----------------|---------|-----------------------------------------|
+| `m[a–z]`       | `ma`    | set mark `a` here                       |
+| `` `[a]``      | `` `a`` | jump to exact position of mark `a`      |
+| `'<a>`         | `'<a>`  | jump to start of marked line            |
+| `` '' ``       | `''`    | back to previous cursor location        |
+| `<C-o>` / `<C-i>` | `<C-o>` | older/newer in jumplist              |
+
+---
+
+## Visual Selection
+
+| Command            | Example | Description                                  |
+|--------------------|---------|----------------------------------------------|
+| `v`, `V`, `<C-v>`  | `v`     | char/line/block selection                    |
+| `o`                | `o`     | move to other end of selection               |
+| `gv`               | `gv`    | reselect last visual area                    |
+| `y`, `d`, `>` on selection | `d` | apply delete/yank/indent on selection       |
+
+---
+
+## Operators & Text Objects
+
+| Operator | Example | Description                           |
+|----------|---------|---------------------------------------|
+| `d`      | `dw`    | delete                                |
+| `c`      | `ciw`   | change inner word (delete+insert)     |
+| `y`      | `yaw`   | yank around word                      |
+| `>` / `<`| `>ap`   | indent/unindent around paragraph      |
+| `gU`/`gu`| `gUiw`  | upper-/lowercase inner word           |
+
+### Text Objects
+
+| Object            | Inner        | Around       | Example    |
+|-------------------|--------------|--------------|------------|
+| word              | `iw`         | `aw`         | `ciw`      |
+| sentence          | `is`         | `as`         | `das`      |
+| paragraph         | `ip`         | `ap`         | `yap`      |
+| `(...)` `[...]` `{...}` | `i(` `i[` `i{` | `a(` `a[` `a{` | `di(` |
+| quotes `"`, `'`, <code>&#96;</code> | `i"` `i'` `i\`` | `a"` `a'` `a\`` | `cs"'` |
+
+---
+
+## Common Operator-Motion Chains
+
+| Chain    | Example | Description                         |
+|----------|---------|-------------------------------------|
+| `dw`     | `dw`    | delete next word                    |
+| `daw`    | `daw`   | delete word + space                 |
+| `ciw`    | `ciw`   | change inner word                   |
+| `di(`    | `di(`   | delete inside parentheses           |
+| `yap`    | `yap`   | yank paragraph                      |
+| `>ap`    | `>ap`   | indent paragraph                    |
+| `3>>`    | `3>>`   | indent line 3×                      |
+| `d$`     | `d$`    | delete to end of line               |
+| `c$`     | `c$`    | change to end of line               |
+| `gUiw`   | `gUiw`  | uppercase inner word                |
+
+---
+
+## Surrounds & Wrapping
+
+> **Using `mini.surround` or `nvim-surround`**
+
+| Action          | Example         | Description                                |
+|-----------------|-----------------|--------------------------------------------|
+| add surround    | `gsa(` or `ysa(`| wrap object in parentheses                 |
+| delete surround | `gsd"` or `ds"`| remove quotes around object                |
+| replace surround| `gsr'"` or `cs'"` | change single→double quotes             |
+
+---
+
+## End-of-Line & Insert-Mode Motions
+
+| Command     | Example | Description                             |
+|-------------|---------|-----------------------------------------|
+| `A`         | `A`     | append at end of line                   |
+| `I`         | `I`     | insert at first non-blank               |
+| `o` / `O`   | `o`     | open new line below/above               |
+| `<C-o>`     | `<C-o>` | execute one Normal command in Insert    |
+| `<C-w>`     | `<C-w>` | delete last word in Insert             |
+| `<C-u>`     | `<C-u>` | delete to start of Insert line         |
+
+---
+
+## Registers & Macros
+
+| Command          | Example   | Description                          |
+|------------------|-----------|--------------------------------------|
+| `"ayw`          | `"ayw`   | yank word into register `a`          |
+| `"ap`           | `"ap`    | paste from register `a`              |
+| `qa ... q`       | `qaabcq`  | record macro `a`, type `abc`, stop   |
+| `@a` / `@@`      | `@a`     | play macro `a` / repeat last macro   |
+
+---
+
+## Window, Split & Tab Management
+
+| Action                 | Example         | Description                              |
+|------------------------|-----------------|------------------------------------------|
+| `:split` / `:sp`       | `:sp file.txt`  | horizontal split + open file             |
+| `:vsplit` / `:vs`      | `:vs main.c`    | vertical split + open file               |
+| `<C-w> h/j/k/l`        | `<C-w>l`        | move between windows                     |
+| `<C-w> +`/`-`/`>`/`<`  | `<C-w>5>`       | resize pane (+5 cols)                    |
+| `<C-w> c` or `:q`      | `<C-w>c`        | close current window/pane                |
+| `:tabnew`              | `:tabnew index.html` | open file in new tab                 |
+| `:tabnext`/`:tabprev`  | `:tabnext`      | switch tabs                              |
+| `:tabclose` / `:tabs`  | `:tabs`         | close tab / list tabs                    |
+
+---
+
+## Command-Line Mode & Substitutions
+
+| Command                    | Example                                      | Description                                |
+|----------------------------|----------------------------------------------|--------------------------------------------|
+| `:w`, `:q`, `:wq`, `:x`     | `:w`                                         | write, quit, write+quit                    |
+| `:e {file}`                | `:e README.md`                               | open/edit file                             |
+| `:b {buf}` / `:bn`, `:bp`  | `:bn`                                        | next/prev buffer                           |
+| `:%s/{from}/{to}/gI`       | `:%s/foo/bar/gI`                             | replace all (case-insensitive)             |
+| `:.,.+5s/{from}/{to}/g`    | `:.,.+5s/old/new/g`                          | replace in next 5 lines                    |
+| `:g/{pattern}/norm yf{`    | `:g/TODO/norm yf:`                           | yank to `:` for all TODO lines             |
+| `:<num>`                   | `:42`                                        | jump to line 42                            |
+
+> **Tip:** In substitute, use `\<<C-r><C-w>\>` to pre-fill word under cursor.
+
+---
+
+## Plugins & Handy Combos
+
+| Plugin / Feature       | Example                                       | Description                                        |
+|------------------------|-----------------------------------------------|----------------------------------------------------|
+| `hop.nvim`             | `:lua require('hop').hint_words()`            | multi-char / word jump hints                       |
+| `leap.nvim`            | `s`                                           | two-key buffer jump                                |
+| `spectre.nvim`         | `:lua require('spectre').open()`              | project-wide search & replace UI                   |
+| `telescope.nvim`       | `<leader>ff`                                  | fuzzy file finder                                  |
+| `mini.surround`        | `gsa)`                                        | wrap selection in parentheses                      |
+| `nvim-ufo`             | use Treesitter folds (`zR` / `zM`)             | open / close all folds                             |
+
+---
+
+## Putting It Into Practice
+
+1. **Master one section at a time** — focus: motions → operators → text objects → macros.
+2. **Use counts** — practice `5j` instead of `jjjjj`.
+3. **Map leader combos** for surrounds, Telescope, Spectre.
+4. **Record macros** for repetitive edits.
+5. **Combine** built-ins with plugins for maximum speed.
+
+> *Happy modal editing!* 🚀
+
