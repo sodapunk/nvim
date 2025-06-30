@@ -3,7 +3,9 @@
 -- Add any additional options here
 --
 
-vim.g.lazyvim_python_lsp = "pyright" -- or "basedpyright"
+--vim.g.lazyvim_python_lsp = "pyright" -- or "basedpyright"
+vim.g.lazyvim_python_lsp = "basedpyright"
+
 vim.g.root_spec = { "lsp", { ".git", "environment.yml", "pyproject.toml" }, "cwd" }
 vim.g.lazyvim_cmp = "nvim-cmp"
 vim.g.autoformat = true -- turn on format-on-save
