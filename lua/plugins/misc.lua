@@ -31,8 +31,5 @@ return {
   {
     "christoomey/vim-tmux-navigator",
     lazy = false, -- load immediately
-    config = function()
-      -- no extra setup needed; uses same h/j/k/l mappings
-    end,
   },
 }

@@ -2,7 +2,7 @@
 return {
   "anuvyklack/hydra.nvim",
   opts = {
-    -- optional: hint styling, timeout, etc.
+    health = false,
   },
   config = function(_, opts)
     local Hydra = require("hydra")
