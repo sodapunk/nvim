@@ -9,6 +9,8 @@
 -- UNBIND LazyVim defaults:
 -- 1) Unbind LazyVim’s default <leader>l (opens LazyUI)
 vim.keymap.del("n", "<leader>l")
+--pcall(vim.keymap.del, "n", "i") -- if it was mapped
+--pcall(vim.keymap.del, "x", "S") -- just in case mini.surround left it
 
 -- My maps:
 
@@ -64,22 +66,22 @@ vim.keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current spli
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Commenting (via Comment.nvim)
 -- Toggle linewise comment
-vim.keymap.set("n", "<leader>/", function()
-  require("Comment.api").toggle.linewise.current()
-end, { desc = "Toggle comment (line)" })
-
--- Toggle blockwise comment
-vim.keymap.set("n", "<leader>*", function()
-  require("Comment.api").toggle.blockwise.current()
-end, { desc = "Toggle comment (block)" })
-
--- Toggle comment in visual mode
-vim.keymap.set(
-  "v",
-  "<leader>/",
-  "<Esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-  { desc = "Toggle comment (linewise)" }
-)
+-- vim.keymap.set("n", "<leader>/", function()
+--   require("Comment.api").toggle.linewise.current()
+-- end, { desc = "Toggle comment (line)" })
+--
+-- -- Toggle blockwise comment
+-- vim.keymap.set("n", "<leader>*", function()
+--   require("Comment.api").toggle.blockwise.current()
+-- end, { desc = "Toggle comment (block)" })
+--
+-- -- Toggle comment in visual mode
+-- vim.keymap.set(
+--   "v",
+--   "<leader>/",
+--   "<Esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+--   { desc = "Toggle comment (linewise)" }
+-- )
 vim.keymap.set(
   "v",
   "<leader>*",

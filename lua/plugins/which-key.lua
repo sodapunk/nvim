@@ -50,14 +50,14 @@ return {
       { "<leader>tz", "z=", desc = "Suggest Fixes" },
 
       -- Surround group under g prefix
-      { "gs", group = "surround" },
-      { "gsa", "gsa", desc = "Add surround" },
-      { "gsd", "gsd", desc = "Delete surround" },
-      { "gsr", "gsr", desc = "Replace surround" },
-      { "gsf", "gsf", desc = "Find → surround" },
-      { "gsF", "gsF", desc = "Find ← surround" },
-      { "gsh", "gsh", desc = "Highlight surround" },
-      { "gsn", "gsn", desc = "Adjust search size" },
+      --{ "gs", group = "surround" },
+      --{ "gsa", "gsa", desc = "Add surround" },
+      --{ "gsd", "gsd", desc = "Delete surround" },
+      --{ "gsr", "gsr", desc = "Replace surround" },
+      --{ "gsf", "gsf", desc = "Find → surround" },
+      ---{ "gsF", "gsF", desc = "Find ← surround" },
+      --{ "gsh", "gsh", desc = "Highlight surround" },
+      --{ "gsn", "gsn", desc = "Adjust search size" },
     },
   },
 }

@@ -32,4 +32,11 @@ return {
     "christoomey/vim-tmux-navigator",
     lazy = false, -- load immediately
   },
+  {
+    "numToStr/Comment.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("Comment").setup()
+    end,
+  },
 }
