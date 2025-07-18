@@ -39,4 +39,7 @@ return {
       require("Comment").setup()
     end,
   },
+  {
+    "ThePrimeagen/vim-be-good",
+  },
 }
